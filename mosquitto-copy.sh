@@ -1,7 +1,7 @@
 # Set which domain this script will be run for
 MY_DOMAIN=
 # Set the directory that the certificates will be copied to.
-CERTIFICATE_DIR=/etc/mosquitto/certs
+CERTIFICATE_DIR=
 
 if [ "${RENEWED_DOMAINS}" = "${MY_DOMAIN}" ]; then
 	# Copy new certificate to Mosquitto directory
