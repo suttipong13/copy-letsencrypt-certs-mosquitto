@@ -5,15 +5,19 @@ CERTIFICATE_DIR=/etc/mosquitto/certs
 
 if [ "${RENEWED_DOMAINS}" = "${MY_DOMAIN}" ]; then
 	# Copy new certificate to Mosquitto directory
-	sudo cp ${RENEWED_LINEAGE}/fullchain.pem ${CERTIFICATE_DIR}/server.pem
-	sudo cp ${RENEWED_LINEAGE}/privkey.pem ${CERTIFICATE_DIR}/server.key
+	echo "Copy new certificate to Mosquitto directory"
+	cp ${RENEWED_LINEAGE}/fullchain.pem ${CERTIFICATE_DIR}/server.pem
+	cp ${RENEWED_LINEAGE}/privkey.pem ${CERTIFICATE_DIR}/server.key
 
 	# Set ownership to Mosquitto
-	sudo chown mosquitto: ${CERTIFICATE_DIR}/server.pem ${CERTIFICATE_DIR}/server.key
+	echo "Set ownership to Mosquitto"
+	chown mosquitto: ${CERTIFICATE_DIR}/server.pem ${CERTIFICATE_DIR}/server.key
 
 	# Ensure permissions are restrictive
-	sudo chmod 0600 ${CERTIFICATE_DIR}/server.pem ${CERTIFICATE_DIR}/server.key
+	echo "Ensure permissions are restrictive"
+	chmod 0600 ${CERTIFICATE_DIR}/server.pem ${CERTIFICATE_DIR}/server.key
 
+	echo "Tell Mosquitto to reload certificates and configuration"
 	# Tell Mosquitto to reload certificates and configuration
-	sudo pkill -HUP -x mosquitto
+	pkill -HUP -x mosquitto
 fi
